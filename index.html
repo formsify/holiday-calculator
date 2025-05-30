@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Club Mahindra Holidays</title>
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    img {
+      width: 200px;
+      height: auto;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      text-align: left;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <img src="logo.png" alt="Logo" />
+  <h1>Club Mahindra Holidays</h1>
+
+  <label>Amount Spent Per Night (in ₹):
+    <input type="number" id="amount" />
+  </label>
+
+  <label>No. of Nights Per Year:
+    <input type="number" id="nights" />
+  </label>
+
+  <label>Number of Years:
+    <input type="number" id="years" />
+  </label>
+
+  <label>Inflation Rate (%):
+    <input type="number" id="inflation" step="0.1" />
+  </label>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    function calculate() {
+      const amount = parseFloat(document.getElementById("amount").value);
+      const nights = parseFloat(document.getElementById("nights").value);
+      const years = parseInt(document.getElementById("years").value);
+      const inflation = parseFloat(document.getElementById("inflation").value) / 100;
+
+      if (isNaN(amount) || isNaN(nights) || isNaN(years) || isNaN(inflation)) {
+        alert("Please enter valid numbers.");
+        return;
+      }
+
+      const annualSpend = amount * nights;
+      let totalCost = 0;
+      for (let i = 0; i < years; i++) {
+        totalCost += annualSpend * Math.pow(1 + inflation, i);
+      }
+
+      document.getElementById("result").textContent = `Total Cost Over ${years} Years: ₹${totalCost.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+    }
+  </script>
+</body>
+</html>
