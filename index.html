@@ -83,5 +83,12 @@
       document.getElementById("result").textContent = `Total Cost Over ${years} Years: ₹${totalCost.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
     }
   </script>
+  <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+      .then(() => console.log('Service Worker registered'));
+  }
+  </script>
+
 </body>
 </html>
